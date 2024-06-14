@@ -5,7 +5,7 @@ import http from 'http';
 const cleanupFns: Map<string, Awaited<LaunchNodeResult>['cleanup']> = new Map();
 
 function cleanupAllNodes() {
-  console.log('cleaning up');
+  console.log('cleaning up ALL NODES');
   cleanupFns.forEach((fn) => fn());
   cleanupFns.clear();
 }
@@ -34,6 +34,7 @@ const server = http.createServer(async (req, res) => {
     const node = await launchNode(body);
     cleanupFns.set(node.url, node.cleanup);
     res.write(node.url);
+    console.log('Launched node:', node.url);
     res.end();
     return;
   }
@@ -80,13 +81,28 @@ process.on('exit', () => {
   console.log('exit');
   cleanupAllNodes();
 });
-process.on('SIGINT', cleanupAllNodes);
-process.on('SIGUSR1', cleanupAllNodes);
-process.on('SIGUSR2', cleanupAllNodes);
-process.on('uncaughtException', (rr) => {
-  console.log(rr);
+process.on('SIGINT', () => {
+  console.log('sigint');
+  cleanupAllNodes();
+});
+process.on('SIGUSR1', () => {
+  console.log('SIGUSR1');
+  cleanupAllNodes();
+});
+process.on('SIGUSR2', () => {
+  console.log('SIGUSR2');
+  cleanupAllNodes();
+});
+process.on('uncaughtException', (e) => {
+  console.log(e);
   console.log('uncaughtException');
   cleanupAllNodes();
 });
-process.on('unhandledRejection', cleanupAllNodes);
-process.on('beforeExit', cleanupAllNodes);
+process.on('unhandledRejection', () => {
+  console.log('unhandledRejection');
+  cleanupAllNodes();
+});
+process.on('beforeExit', () => {
+  console.log('beforeExit');
+  cleanupAllNodes();
+});
