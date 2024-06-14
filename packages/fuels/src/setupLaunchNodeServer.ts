@@ -31,7 +31,10 @@ const server = http.createServer(async (req, res) => {
   if (req.url === '/') {
     const body = (await parseBody(req)) as LaunchNodeOptions;
 
-    const node = await launchNode(body);
+    const node = await launchNode({
+      ...body,
+      fuelCorePath: 'internal/fuel-core/fuel-core-binaries/fuel-core',
+    });
     cleanupFns.set(node.url, node.cleanup);
     res.write(node.url);
     console.log('Launched node:', node.url);
