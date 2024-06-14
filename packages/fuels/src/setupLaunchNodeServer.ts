@@ -33,10 +33,8 @@ const server = http.createServer(async (req, res) => {
 
     const node = await launchNode({
       ...body,
-      // fuelCorePath: 'internal/fuel-core/fuel-core-binaries/fuel-core',
-      // fuelCorePath: 'fuels-core',
+      fuelCorePath: 'fuels-core',
     });
-    console.log('FUEL_CORE_PATH', process.env.FUEL_CORE_PATH);
     cleanupFns.set(node.url, node.cleanup);
     res.write(node.url);
     res.end();
