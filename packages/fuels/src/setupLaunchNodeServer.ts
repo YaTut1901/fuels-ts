@@ -33,7 +33,8 @@ const server = http.createServer(async (req, res) => {
 
     const node = await launchNode({
       ...body,
-      fuelCorePath: 'internal/fuel-core/fuel-core-binaries/fuel-core',
+      // fuelCorePath: 'internal/fuel-core/fuel-core-binaries/fuel-core',
+      fuelCorePath: 'fuels-core',
     });
     cleanupFns.set(node.url, node.cleanup);
     res.write(node.url);
@@ -101,10 +102,9 @@ process.on('uncaughtException', (e) => {
   console.log('uncaughtException');
   cleanupAllNodes();
 });
-process.on('unhandledRejection', async (reason, thePromise) => {
+process.on('unhandledRejection', (reason) => {
   console.log('unhandledRejection');
   console.log(reason);
-  console.log(await thePromise);
 
   cleanupAllNodes();
 });
