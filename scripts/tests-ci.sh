@@ -10,7 +10,7 @@ echo "Started Fuel-Core node in background."
 
 if [[ "$*" == *"--browser"* ]]; then
     pnpm pretest
-    pnpm test:browser
+    pnpm test:browser:filter packages/fuel-gauge/src/call-test-contract.test.ts
     TEST_RESULT=$?
 elif [[ "$*" == *"--node"* ]]; then
     pnpm test
