@@ -7,7 +7,12 @@ export default async function setup() {
       shell: 'sh',
     });
 
-    cp.stdout?.on('data', () => {
+    cp.stderr.on('data', (chunk) => {
+      console.log(chunk.toString());
+    });
+
+    cp.stdout?.on('data', (chunk) => {
+      console.log(chunk.toString());
       // teardown
       resolve(() => {
         // https://github.com/nodejs/node/issues/2098#issuecomment-169549789
