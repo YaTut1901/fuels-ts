@@ -15,7 +15,7 @@ export default defineConfig({
   esbuild: { target: "es2022" },
   test: {
     coverage: {
-      enabled: true,
+      // enabled: true,
       provider: "istanbul",
       reporter: ["json", "text", "html"],
       include: ["packages", "internal", "apps"],
@@ -41,7 +41,7 @@ export default defineConfig({
     ],
     globals: true,
     setupFiles: ["./vitest.env.ts"],
-    env: loadEnv(mode, process.cwd(), ""),
+    env: { ...loadEnv(mode, process.cwd(), ""), FUEL_CORE_PATH: "fuels-core" },
     poolOptions: {
       threads: {
         minThreads: 1,
