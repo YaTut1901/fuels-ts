@@ -98,8 +98,11 @@ process.on('uncaughtException', (e) => {
   console.log('uncaughtException');
   cleanupAllNodes();
 });
-process.on('unhandledRejection', () => {
+process.on('unhandledRejection', async (reason, thePromise) => {
   console.log('unhandledRejection');
+  console.log(reason);
+  console.log(await thePromise);
+
   cleanupAllNodes();
 });
 process.on('beforeExit', () => {
