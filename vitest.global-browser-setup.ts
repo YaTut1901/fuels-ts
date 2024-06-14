@@ -2,6 +2,8 @@ import { spawn } from 'node:child_process';
 
 export default async function setup() {
   return new Promise((resolve, reject) => {
+    console.log('FUEL_CORE_PATH', process.env.FUEL_CORE_PATH);
+
     const cp = spawn('pnpm tsx packages/fuels/src/setupLaunchNodeServer.ts', {
       detached: true,
       shell: 'sh',
