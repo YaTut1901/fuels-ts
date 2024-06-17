@@ -5,7 +5,6 @@ import http from 'http';
 const cleanupFns: Map<string, Awaited<LaunchNodeResult>['cleanup']> = new Map();
 
 function cleanupAllNodes() {
-  console.log('cleaning up ALL NODES');
   cleanupFns.forEach((fn) => fn());
   cleanupFns.clear();
 }
@@ -96,8 +95,8 @@ process.on('SIGUSR2', () => {
   cleanupAllNodes();
 });
 process.on('uncaughtException', (e) => {
-  console.log(e);
   console.log('uncaughtException');
+  console.log(e);
   cleanupAllNodes();
 });
 process.on('unhandledRejection', (reason) => {
