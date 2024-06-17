@@ -1,5 +1,12 @@
 # @fuel-ts/versions
 
+## 0.90.0
+
+### Patch Changes
+
+- e165e37: chore!: upgrade fuel core to `0.28.0`
+- af3202c: feat: support for `bun`
+
 ## 0.89.2
 
 ## 0.89.1
